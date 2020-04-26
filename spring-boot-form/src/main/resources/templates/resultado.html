@@ -3,19 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <title th:text="${titulo}">Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 </head>
 <body>
-	<h3 th:text="${titulo}"></h3>
-	<ul>
-		<li th:text="${user.identificador}"></li>
-		<li th:text="${user.rut}"></li>
-		<li th:text="${user.nombre}"></li>
-		<li th:text="${user.apellido}"></li>
-		<li th:text="${user.username}"></li>
-		<li th:text="${user.password}"></li>
-		<li th:text="${user.email}"></li>
-		<li th:text="${user.direccion}"></li>
-		<li th:text="${user.cuenta}"></li>
-	</ul>
+	<div class="container">
+		<a th:href="@{/form}" class="btn btn-success btn-lg my-2">Volver</a>
+		<ul class="list-group my-3">
+			<li class="list-group-item active" th:text="${titulo}"></li>
+			<li class="list-group-item" th:text="${user.identificador}"></li>
+			<li class="list-group-item" th:text="${user.rut}"></li>
+			<li class="list-group-item" th:text="${user.nombre}"></li>
+			<li class="list-group-item" th:text="${user.apellido}"></li>
+			<li class="list-group-item" th:text="${user.username}"></li>
+			<li class="list-group-item" th:text="${user.password}"></li>
+			<li class="list-group-item" th:text="${user.email}"></li>
+			<li class="list-group-item" th:text="${user.direccion}"></li>
+			<li class="list-group-item" th:text="${user.cuenta}"></li>
+			<li class="list-group-item"
+				th:text="${#dates.format(user.fechaNacimiento,'dd/MM/yyyy')}"></li>
+			<li class="list-group-item"
+				th:text="${#calendars.format(user.fechaDeCreacion, 'yyyy-MM-dd')}"></li>
+			<li class="list-group-item" th:text="${user.pais.id}"></li>
+			<li class="list-group-item" th:text="${user.pais.codigo}"></li>
+			<li class="list-group-item" th:text="${user.pais.nombre}"></li>
+			<li class="list-group-item" th:text="${user.genero}"></li>
+			<li class="list-group-item" th:text="${user.valorSecreto}"></li>
+		</ul>
+	</div>
+	<div class="container">
+		<ul class="list-group my-3">
+			<li class="list-group-item active" th:text="'Roles'"></li>
+			<li class="list-group-item" th:each="role : ${user.roles}"
+				th:text="${role.id} +' '+ ${role.nombre} + ' ' + ${role.role}"></li>
+		</ul>
+	</div>
+	<div class="container">
+		<ul class="list-group my-3">
+			<li class="list-group-item active">Habilitado</li>
+			<li class="list-group-item" th:text="${user.habilitar}"></li>
+			<li class="list-group-item" th:if="${user.habilitar}">Habilitado</li>
+			<li class="list-group-item" th:if="!${user.habilitar}">Deshabilitado</li>
+		</ul>
+	</div>
 </body>
 </html>

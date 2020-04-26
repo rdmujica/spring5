@@ -1,13 +1,21 @@
 package com.bolsaideas.springboot.form.app.domain;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.bolsaideas.springboot.form.app.validations.IdentificadorRegex;
 import com.bolsaideas.springboot.form.app.validations.Requerido;
@@ -30,6 +38,7 @@ public class Usuario {
 	@NotEmpty
 	@Email
 	private String email;
+	
 
 	private String nombre;
 
@@ -40,11 +49,110 @@ public class Usuario {
 	
 	@NotNull
 	@Min(5)
-	@Max(5000)
+	@Max(5000) 
 	private Integer cuenta;
 	
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past
+	//@Future
+	private Date fechaNacimiento;
+	
+	@Future
+	@NotNull
+	private Date fechaDeCreacion;
+	
+	/*
+	 * @NotEmpty private String pais;
+	 */
+	
+	/*
+	 * public String getPais() { return pais; }
+	 * 
+	 * public void setPais(String pais) { this.pais = pais; }
+	 */
+	
+//	@Valid
+	@NotNull
+	private Pais pais;
+	
+	private Boolean habilitar;
+	
+	@NotEmpty
+	private String genero;
+	
+	private String valorSecreto;	
 	
 	
+	public String getValorSecreto() {
+		return valorSecreto;
+	}
+
+	public void setValorSecreto(String valorSecreto) {
+		this.valorSecreto = valorSecreto;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public Boolean getHabilitar() {
+		return habilitar;
+	}
+
+	public void setHabilitar(Boolean habilitar) {
+		this.habilitar = habilitar;
+	}
+
+	@NotEmpty
+	private List<Role> roles;
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}	
+	
+	/*
+	 * @NotEmpty private List<String> roles;
+	 * 
+	 * 
+	 * 
+	 * public List<String> getRoles() { return roles; }
+	 * 
+	 * public void setRoles(List<String> roles) { this.roles = roles; }
+	 */
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}	
+
+	public Date getFechaDeCreacion() {
+		return fechaDeCreacion;
+	}
+
+	public void setFechaDeCreacion(Date fechaDeCreacion) {
+		this.fechaDeCreacion = fechaDeCreacion;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	public Integer getCuenta() {
 		return cuenta;
 	}

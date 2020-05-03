@@ -98,3 +98,28 @@ INSERT INTO clientes (id,nombre,apellido,email,create_at,foto) VALUES (97,'Casa'
 INSERT INTO clientes (id,nombre,apellido,email,create_at,foto) VALUES (98,'Fedra','Angel','fedra@gmail.com','2000-12-31','');
 INSERT INTO clientes (id,nombre,apellido,email,create_at,foto) VALUES (99,'Esteban','Dante','esteban@gmail.com','2005-04-15','');
 INSERT INTO clientes (id,nombre,apellido,email,create_at,foto) VALUES (100,'Cris','Tabanos','tabanos@gmail.com','2020-05-01','');
+
+/*Tabla productos*/
+INSERT INTO productos(nombre,precio,create_at) VALUES('Panasonic Pantalla LCD',259990,NOW());
+INSERT INTO productos(nombre,precio,create_at) VALUES('Sony camara digital DSC-W320B',123490,NOW());
+INSERT INTO productos(nombre,precio,create_at) VALUES('Apple iPod shuffle',1499990,NOW());
+INSERT INTO productos(nombre,precio,create_at) VALUES('Sony Notebook Z110',37990,NOW());
+INSERT INTO productos(nombre,precio,create_at) VALUES('Hewlett Packard Multifuncional F2280',69990,NOW());
+INSERT INTO productos(nombre,precio,create_at) VALUES('Bianchi Bicicleta Aro 26',69990,NOW());
+INSERT INTO productos(nombre,precio,create_at) VALUES('Mica Comoda 5 cajones',299990,NOW());
+
+/*Tabla facturas*/
+INSERT INTO facturas (id,descripcion,observacion,cliente_id,create_at) VALUES (1,'Factura de oficina',null,1,NOW());
+INSERT INTO facturas (id,descripcion,observacion,cliente_id,create_at) VALUES (2,'Factura Bicicleta','El cliente pago pero aún no retira',1,NOW());
+
+/*Tabla facturas_items*/
+INSERT INTO facturas_items(cantidad,factura_id,producto_id) VALUES (1,1,1);
+INSERT INTO facturas_items(cantidad,factura_id,producto_id) VALUES (2,1,4);
+INSERT INTO facturas_items(cantidad,factura_id,producto_id) VALUES (1,1,5);
+INSERT INTO facturas_items(cantidad,factura_id,producto_id) VALUES (1,1,7);
+
+INSERT INTO facturas_items(cantidad,factura_id,producto_id) VALUES (3,2,6);
+
+
+
+

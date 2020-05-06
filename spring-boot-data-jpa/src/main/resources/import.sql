@@ -120,6 +120,13 @@ INSERT INTO facturas_items(cantidad,factura_id,producto_id) VALUES (1,1,7);
 
 INSERT INTO facturas_items(cantidad,factura_id,producto_id) VALUES (3,2,6);
 
+CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(45) NOT NULL UNIQUE, password VARCHAR(60) NOT NULL,enabled TINYINT(1) NOT NULL DEFAULT 1 ); 
+INSERT INTO users (username,password) VALUES('rafael','$2a$10$mOXrVmXNFP2GHjkgvWDAY.oHDAHysUZDwLZnbLicTmVTWgv0Gda2e');
+INSERT INTO users (username,password) VALUES('admin','$2a$10$w.X0K4lmO7oL1RuOItOFmu1m2aZBFJXPBo2IUe/y9p69.CaGYSQI.'); 
 
+CREATE TABLE authorities (id INT PRIMARY KEY AUTO_INCREMENT, user_id INT  NOT NULL, authority VARCHAR(45) NOT NULL, UNIQUE(user_id,authority));
+alter table authorities add constraint fk_authorities_users foreign key (user_id) references users(id) ON DELETE CASCADE ON UPDATE CASCADE; 
 
-
+INSERT INTO authorities (user_id,authority) VALUES(1,'ROLE_USER');
+INSERT INTO authorities (user_id,authority) VALUES(2,'ROLE_USER');
+INSERT INTO authorities (user_id,authority) VALUES(2,'ROLE_ADMIN');

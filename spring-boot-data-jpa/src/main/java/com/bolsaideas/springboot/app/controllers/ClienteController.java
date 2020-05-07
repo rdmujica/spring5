@@ -3,6 +3,7 @@ package com.bolsaideas.springboot.app.controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,6 +58,9 @@ public class ClienteController {
 
 	@Autowired
 	private IUploadFileService uploadFileService;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	@Secured({"ROLE_USER"})
 	@GetMapping(value = "/uploads/{filename:.+}")
@@ -87,7 +92,7 @@ public class ClienteController {
 
 	@RequestMapping(value = { "/listar", "/" }, method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
-			Authentication authentication, HttpServletRequest request) {
+			Authentication authentication, HttpServletRequest request, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null) {
 			logger.info("Hola usuario autenticado, tu username es: ".concat(authentication.getName()));
@@ -113,7 +118,7 @@ public class ClienteController {
 		Pageable pageable = PageRequest.of(page, 5);
 		Page<Cliente> clientes = this.clienteService.findAll(pageable);
 		PageRender<Cliente> pageRender = new PageRender<Cliente>("/listar", clientes);
-		model.addAttribute("titulo", "Listado de clientes");
+		model.addAttribute("titulo",messageSource.getMessage("text.cliente.listar.titulo",null,locale));
 		model.addAttribute("clientes", clientes);
 		model.addAttribute("page", pageRender);
 		return "listar";

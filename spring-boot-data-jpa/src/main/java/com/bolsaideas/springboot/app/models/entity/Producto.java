@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 
@@ -35,7 +36,7 @@ public class Producto implements Serializable {
 	public void prePersist() {
 		createAt = new Date();
 	}
-	
+	@XmlAttribute
 	public Long getId() {
 		return Id;
 	}

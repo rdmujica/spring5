@@ -19,11 +19,21 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "clientes")
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -47,11 +57,13 @@ public class Cliente implements Serializable {
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createAt;
 
 	private String foto;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente")
+	@JsonManagedReference
 	private List<Factura> facturas;
 
 	/*
@@ -60,7 +72,7 @@ public class Cliente implements Serializable {
 	public Cliente() {
 		this.facturas = new ArrayList<Factura>();
 	}
-
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
@@ -112,7 +124,8 @@ public class Cliente implements Serializable {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
+    @XmlElementWrapper(name="facturas")
+    @XmlElement(name="factura")	
 	public List<Factura> getFacturas() {
 		return facturas;
 	}
@@ -120,7 +133,7 @@ public class Cliente implements Serializable {
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
-
+	
 	public void addFactura(Factura factura) {
 		this.facturas.add(factura);
 	}

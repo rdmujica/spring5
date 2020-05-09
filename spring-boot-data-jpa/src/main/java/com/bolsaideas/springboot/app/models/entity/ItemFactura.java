@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "facturas_items")
@@ -20,13 +23,15 @@ public class ItemFactura implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private Integer cantidad;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="producto_id")
+	@JoinColumn(name = "producto_id")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Producto producto;
 
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
@@ -42,7 +47,7 @@ public class ItemFactura implements Serializable {
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
-	
+
 	public Double calcularImporte() {
 		return cantidad.doubleValue() * producto.getPrecio();
 	}
@@ -54,6 +59,5 @@ public class ItemFactura implements Serializable {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
-	
-	
+
 }

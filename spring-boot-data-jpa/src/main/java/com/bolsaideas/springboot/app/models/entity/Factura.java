@@ -20,6 +20,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "facturas")
@@ -41,10 +47,11 @@ public class Factura implements Serializable {
 	private Date createAt;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
 	private Cliente cliente;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "factura_id")
+	@JoinColumn(name = "factura_id")		
 	private List<ItemFactura> items;
 
 	public Factura() {
@@ -55,7 +62,7 @@ public class Factura implements Serializable {
 	public void prePersist() {
 		createAt = new Date();
 	}
-
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
@@ -87,7 +94,7 @@ public class Factura implements Serializable {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-
+	@XmlTransient
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -95,7 +102,8 @@ public class Factura implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
+    @XmlElementWrapper(name="items")
+    @XmlElement(name="item")
 	public List<ItemFactura> getItems() {
 		return items;
 	}

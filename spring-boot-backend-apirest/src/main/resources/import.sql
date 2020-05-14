@@ -13,8 +13,8 @@ INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (12,'Aldebaran',
 INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (13,'Juan','Landaeta','juanL@gmail.com','1986-10-07');
 INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (14,'Cesar','Mora','moracesar@gmail.com','2020-04-21');
 INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (15,'Flor','Mesa','flor_mesa@gmail.com','2018-12-13');
-INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (16,'Ana','Carmona','carmona@gmail.com','1018-10-11');
-INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (17,'Casa','Papel','papel@gmail.com','2011-11-04');
-INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (18,'Fedra','Angel','fedra@gmail.com','2000-12-31');
-INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (19,'Esteban','Dante','esteban@gmail.com','2005-04-15');
-INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (20,'Cris','Tabanos','tabanos@gmail.com','2020-05-01');
+INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (16,'Ana Julia','Carmona','ana.carmona@gmail.com','1018-10-11');
+INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (17,'Casa','Queso','casa.queso@gmail.com','2011-11-04');
+INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (18,'Federica','Piña','fed.pinna@gmail.com','2000-12-31');
+INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (19,'Elder','Dante','elder_dante@gmail.com','2005-04-15');
+INSERT INTO clientes (id,nombre,apellido,email,create_at)VALUES (20,'Jose','Tabanos','jose.tabanos@gmail.com','2020-05-01');

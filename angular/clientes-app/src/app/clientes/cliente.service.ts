@@ -1,7 +1,9 @@
+import { Router } from '@angular/router'
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators'
+import { Observable, of, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators'
+import Swal from 'sweetalert2';
 
 import { CLIENTES } from './cliente.json';
 import { Cliente } from './cliente';
@@ -15,7 +17,10 @@ export class ClienteService {
 
   private httHeaders = new HttpHeaders({'Content-Type':'application/json'});
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
 
   getClientes(): Observable<Cliente[]> {
     //return of(CLIENTES);
@@ -24,17 +29,47 @@ export class ClienteService {
   }
 
   create(cliente: Cliente): Observable<Cliente>{
-    return this.http.post<Cliente>(this.urlEndpoint,cliente,{headers: this.httHeaders});
+    return this.http.post(this.urlEndpoint,cliente,{headers: this.httHeaders}).pipe(
+      map((response: any) => response.cliente as Cliente),
+      catchError( (e) => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al crear al cliente',e.error.mensaje, 'error');
+        return throwError(e);
+      }
+
+      )
+    );
   }
 
   getCliente(id: number):Observable<Cliente>{
-   return this.http.get<Cliente>(`${this.urlEndpoint}/${id}`,{headers: this.httHeaders});
+   return this.http.get<Cliente>(`${this.urlEndpoint}/${id}`,{headers: this.httHeaders}).pipe(
+     catchError( (e) => {
+       this.router.navigate(['/clientes']);
+       console.error(e.error.mensaje);
+       Swal.fire('Error al editar',e.error.mensaje, 'error');
+       return throwError(e);
+     })
+   );
   }
 
-  update(cliente: Cliente): Observable<Cliente>{
-    return this.http.put<Cliente>(`${this.urlEndpoint}/${cliente.id}`,cliente,{headers: this.httHeaders});
+  update(cliente: Cliente): Observable<any>{
+    return this.http.put<any>(`${this.urlEndpoint}/${cliente.id}`,cliente,{headers: this.httHeaders}).pipe(
+      catchError( e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al crear al actualizar cliente',e.error.mensaje, 'error');
+        return throwError(e);
+      }
+      )
+    );
   }
   delete(id: number): Observable<Cliente>{
-    return this.http.delete<Cliente>(`${this.urlEndpoint}/${id}`,{headers: this.httHeaders});
+    return this.http.delete<Cliente>(`${this.urlEndpoint}/${id}`,{headers: this.httHeaders}).pipe(
+      catchError( e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al crear al eliminar cliente',e.error.mensaje, 'error');
+        return throwError(e);
+      }
+      )
+    );
   }
 }
